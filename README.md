@@ -1,7 +1,7 @@
 HUMDisqusWebView
 ================
 
-Wrapper around a UIWebView for displaying Disqus comments using Disqus's Javascript embed in native apps mechanism (http://help.disqus.com/customer/portal/articles/472096-javacript-embed-in-native-apps).
+Wrapper around a UIWebView for displaying Disqus comments using Disqus's Javascript embed in native apps mechanism (http://help.disqus.com/customer/portal/articles/472096-javacript-embed-in-native-apps). HUMDisqusWebView handles all the Javascript setup and handling logins.
 
 This class doesn't inherit from UIWebView but forwards the UIWebView's public methods to a wrapped instance.
 
