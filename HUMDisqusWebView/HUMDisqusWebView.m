@@ -72,6 +72,11 @@ static NSString *const kHUMLoginCancelUrlFormat		= @"disqus.com/next/login/?foru
 	_delegateFlags.delegateDidFailLoadWithError = [_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)];
 }
 
+- (void)setOriginalArticleTitle:(NSString *)originalArticleTitle {
+	NSString *escapedString = originalArticleTitle;
+	escapedString = [escapedString stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+	_originalArticleTitle = escapedString;
+}
 
 #pragma mark - Helpers
 - (NSString *)formattedDisqusHTML {
@@ -95,6 +100,15 @@ static NSString *const kHUMLoginCancelUrlFormat		= @"disqus.com/next/login/?foru
 	NSString *urlPath = url.absoluteString;
 
 	return [urlPath rangeOfString:[self cancelUrlString]].location != NSNotFound;
+}
+
+- (NSString *)escapeForJavascript:(NSString *)string {
+    // valid JSON object need to be an array or dictionary
+    NSArray* arrayForEncoding = @[string];
+    NSString* jsonString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:arrayForEncoding options:0 error:nil] encoding:NSUTF8StringEncoding];
+	
+    NSString* escapedString = [jsonString substringWithRange:NSMakeRange(2, jsonString.length - 4)];
+    return escapedString;
 }
 
 #pragma mark - Comments
